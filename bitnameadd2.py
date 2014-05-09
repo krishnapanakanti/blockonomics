@@ -7,6 +7,7 @@ import sys
 from django import forms
 from django.forms.util import ValidationError
 from Crypto.Hash import SHA256
+import sqlite3
 
 
 class BCAddressField(forms.CharField):
@@ -110,6 +111,11 @@ def main():
     x2 = '</div>'
     c1 = 0
     b1 = 0
+    conn = sqlite3.connect('test.db')
+    print "Opened database successfully";
+    conn.execute('''CREATE TABLE USER_ADDRESS
+       (USER_NAME TEXT NOT NULL,BTC_ADDRESS CHAR(35) PRIMARY KEY NOT NULL);''')
+    print "Table created successfully";
     print "the length of the string is : " +d1
     while c1 != -1:
         c1 = page.find(s1,b1,l1)
@@ -131,8 +137,15 @@ def main():
                 if leg <=35:
                     a = get_bcaddress_version(s)
                     if a == 0:
-                        p4 = (p3,i)
-                        print p4
+			p31 = str(p3)
+			print "INSERT INTO USER_ADDRESS(USER_NAME,BTC_ADDRESS) \ VALUES (p31,i)"
+			print "Inserted values successfully"
+    cursor = conn.execute("SELECT * FROM USER_ADDRESS")
+    for row in cursor:
+	print "USER NAME = ", row[0]
+	print "BITCOIN ADDRESS = ", row[1]
+    print "Displayed values in table successfully"
+    conn.close();
 
 
 if  __name__ =="__main__":
