@@ -138,10 +138,9 @@ def main():
                     a = get_bcaddress_version(s)
                     if a == 0:
 			p31 = str(p3)
-			p4 = (p3,i)
-			print p4
-			print "INSERT INTO USER_ADDRESS(USER_NAME,BTC_ADDRESS) \ VALUES (p31,i)"
-			print "Inserted values successfully"
+			i1 = str(i)
+			conn.execute("INSERT INTO USER_ADDRESS(USER_NAME,BTC_ADDRESS) VALUES ('%s','%s')"%(p31,i1))
+                 	print "Inserted values successfully"
     cursor = conn.execute("SELECT * FROM USER_ADDRESS")
     for row in cursor:
 	print "USER NAME = ", row[0]
