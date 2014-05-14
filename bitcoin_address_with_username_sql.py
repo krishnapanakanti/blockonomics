@@ -106,24 +106,27 @@ def main():
     l1 = len(page)
     d1 = str(l1)
     s1 = "title=\"View the profile of "
+    s2 = "<div class=\"signature "
     x1 = '"'
+    x2 = '</div>'
     c1 = 0
     b1 = 0
-   
+    print "the length of the string is : " +d1
     conn = sqlite3.connect('test.db')
     
     conn.execute('''CREATE TABLE IF NOT EXISTS USER_ADDRESS
        (USER_NAME TEXT NOT NULL,BTC_ADDRESS TEXT PRIMARY KEY NOT NULL);''')
-   
     while c1 != -1:
         c1 = page.find(s1,b1,l1)
         a1 = c1 + 27
-        e1 = page.find(s1,a1,l1)
         y1 = page.find(x1,a1,l1)
         b1 = y1
+	f1 = page.find(s2,b1,l1)
+	g1 = f1 + 24
+	f2 = page.find(x2,g1,l1)
+	h1 = f2
         p3 = page[a1:b1]
-        b1 = b1+2
-        p1 = page[a1:e1]
+        p1 = page[g1:h1]
         p2 = re.split(r'\W',p1)
         for i in p2:
             s = str(i)
