@@ -102,7 +102,6 @@ def main():
     p = re.split(r'\W',page)
     
     l = len(p)
-    print l
     l1 = len(page)
     d1 = str(l1)
     s1 = "title=\"View the profile of "
@@ -111,7 +110,6 @@ def main():
     x2 = '</div>'
     c1 = 0
     b1 = 0
-    print "the length of the string is : " +d1
     conn = sqlite3.connect('test.db')
     
     conn.execute('''CREATE TABLE IF NOT EXISTS USER_ADDRESS
