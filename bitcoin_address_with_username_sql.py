@@ -109,12 +109,12 @@ def main():
     x1 = '"'
     c1 = 0
     b1 = 0
-    print "the length of the string is : " +d1
+   
     conn = sqlite3.connect('test.db')
-    print "Opened database successfully";
+    
     conn.execute('''CREATE TABLE IF NOT EXISTS USER_ADDRESS
-       (USER_NAME TEXT NOT NULL,BTC_ADDRESS TEXT NOT NULL);''')
-    print "Table created successfully";
+       (USER_NAME TEXT NOT NULL,BTC_ADDRESS TEXT PRIMARY KEY NOT NULL);''')
+   
     while c1 != -1:
         c1 = page.find(s1,b1,l1)
         a1 = c1 + 27
@@ -133,8 +133,11 @@ def main():
                     a = get_bcaddress_version(s)
                     if a == 0:
                         p31 = str(p3)
-			conn.execute("INSERT INTO USER_ADDRESS(USER_NAME,BTC_ADDRESS) VALUES ('%s','%s');"%(p31,s))
-			print "Inserted values successfully"
+			try:
+				conn.execute("INSERT INTO USER_ADDRESS(USER_NAME,BTC_ADDRESS) VALUES ('%s','%s');"%(p31,s))
+			except sqlite3.IntegrityError:
+				pass
+			
     conn.commit()
     conn.close();
 
