@@ -7,7 +7,6 @@ import sys
 from django import forms
 from django.forms.util import ValidationError
 from Crypto.Hash import SHA256
-import sqlite3
 
 
 class BCAddressField(forms.CharField):
@@ -111,11 +110,6 @@ def main():
     x2 = '</div>'
     c1 = 0
     b1 = 0
-    conn = sqlite3.connect('test.db')
-    print "Opened database successfully";
-    conn.execute('''CREATE TABLE USER_ADDRESS
-       (USER_NAME TEXT NOT NULL,BTC_ADDRESS CHAR(35) PRIMARY KEY NOT NULL);''')
-    print "Table created successfully";
     print "the length of the string is : " +d1
     while c1 != -1:
         c1 = page.find(s1,b1,l1)
@@ -123,9 +117,9 @@ def main():
         y1 = page.find(x1,a1,l1)
         b1 = y1
 	f1 = page.find(s2,a1,l1)
-	g1 = a1 + 17
 	f2 = page.find(x2,g1,l1)
 	h1 = f2
+	g1 = a1 + 17
         p3 = page[a1:b1]
         b1 = b1+2
         p1 = page[g1:h1]
@@ -137,17 +131,8 @@ def main():
                 if leg <=35:
                     a = get_bcaddress_version(s)
                     if a == 0:
-			p31 = str(p3)
-			p4 = (p3,i)
-			print p4
-			print "INSERT INTO USER_ADDRESS(USER_NAME,BTC_ADDRESS) \ VALUES (p31,i)"
-			print "Inserted values successfully"
-    cursor = conn.execute("SELECT * FROM USER_ADDRESS")
-    for row in cursor:
-	print "USER NAME = ", row[0]
-	print "BITCOIN ADDRESS = ", row[1]
-    print "Displayed values in table successfully"
-    conn.close();
+                        p4 = (p3,i)
+                        print p4
 
 
 if  __name__ =="__main__":
