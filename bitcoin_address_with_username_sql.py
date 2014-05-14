@@ -112,8 +112,8 @@ def main():
     print "the length of the string is : " +d1
     conn = sqlite3.connect('test.db')
     print "Opened database successfully";
-    conn.execute('''CREATE TABLE USER_ADDRESS
-       (USER_NAME TEXT NOT NULL,BTC_ADDRESS CHAR(35) PRIMARY KEY NOT NULL);''')
+    conn.execute('''CREATE TABLE IF NOT EXISTS USER_ADDRESS
+       (USER_NAME TEXT NOT NULL,BTC_ADDRESS TEXT NOT NULL);''')
     print "Table created successfully";
     while c1 != -1:
         c1 = page.find(s1,b1,l1)
@@ -132,15 +132,10 @@ def main():
                 if leg <=35:
                     a = get_bcaddress_version(s)
                     if a == 0:
-                        p4 = (p3,i)
-                        print p4
-			print "INSERT INTO USER_ADDRESS(USER_NAME,BTC_ADDRESS) \ VALUES (p31,i)"
+                        p31 = str(p3)
+			conn.execute("INSERT INTO USER_ADDRESS(USER_NAME,BTC_ADDRESS) VALUES ('%s','%s');"%(p31,s))
 			print "Inserted values successfully"
-    cursor = conn.execute("SELECT * FROM USER_ADDRESS")
-    for row in cursor:
-	print "USER NAME = ", row[0]
-	print "BITCOIN ADDRESS = ", row[1]
-    print "Displayed values in table successfully"
+    conn.commit()
     conn.close();
 
 
