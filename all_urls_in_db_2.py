@@ -39,7 +39,9 @@ def get_url(href_tag):
 		p2 = str(p1)
 		insert(p2)
 		b = b+2
-
+	cursor = conn.execute("SELECT * FROM URL")
+        for row in cursor:
+                get_url(row[0])
 
 def main():
 	global url
